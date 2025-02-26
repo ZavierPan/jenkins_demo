@@ -4,12 +4,13 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                echo 'Testing..'
+                echo "Testing.."
+                echo "Current branch: ${env.BRANCH_NAME}"
             }
         }
         stage("Build"){
             when {
-                branch "main"
+                expression { env.BRANCH_NAME == 'main' }
             }
             steps{
                 echo "Building.."
@@ -17,12 +18,11 @@ pipeline {
         }
         stage("Deploy"){
             when {
-                branch "main"
+                expression { env.BRANCH_NAME == 'main' }
             }
             steps{
                 echo "Deploying.."
             }
         }
     }
-    
 }
