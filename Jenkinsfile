@@ -12,15 +12,15 @@ pipeline {
                 branch "main"
             }
             steps{
-                sh "docker build -t ${IMAGE_REFERENCE} ."
+                echo "Building.."
             }
         }
-        stage("Push"){
+        stage("Deploy"){
             when {
                 branch "main"
             }
             steps{
-                sh "docker push ${IMAGE_REFERENCE}"
+                echo "Deploying.."
             }
         }
     }
