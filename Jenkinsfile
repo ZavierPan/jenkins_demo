@@ -2,10 +2,27 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Test') {
             steps {
-                echo 'Hello World'
+                echo 'Testing..'
+            }
+        }
+        stage("Build"){
+            when {
+                branch "main"
+            }
+            steps{
+                sh "docker build -t ${IMAGE_REFERENCE} ."
+            }
+        }
+        stage("Push"){
+            when {
+                branch "main"
+            }
+            steps{
+                sh "docker push ${IMAGE_REFERENCE}"
             }
         }
     }
+    
 }
